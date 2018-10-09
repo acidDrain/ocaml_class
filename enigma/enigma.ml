@@ -1,5 +1,19 @@
 type age_pair = int * int;;
 
+let (--) lower upper =
+  let rec aux n acc =
+    if n < lower then acc else aux (n-1) (n::acc)
+  in aux upper [];;
+
+let gen_pairs mn mx =
+  let base_list = (mn--mx) in
+  let range = List.nth base_list ((List.length base_list) - 1) in
+  let create_count n =
+    let rec aux curr acc =
+      if curr > range then acc else aux (curr+1) ((curr, n)::acc)
+    in aux mn []
+  in List.flatten (List.map create_count base_list);;
+
 let exchange k =
   let x = string_of_int k in
   let y = String.get x 1 and z = String.get x 0 in
