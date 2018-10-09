@@ -1,0 +1,8 @@
+### Starting build.
+# Target: enigma.ml.depends, tags: { extension:ml, file:enigma.ml, ocaml, ocamldep, quiet }
+ocamlfind ocamldep -modules enigma.ml > enigma.ml.depends
+# Target: enigma.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:enigma.cmo, file:enigma.ml, implem, ocaml, quiet }
+ocamlfind ocamlc -c -o enigma.cmo enigma.ml
+# Target: enigma.byte, tags: { byte, dont_link_with, extension:byte, file:enigma.byte, link, ocaml, program, quiet }
+ocamlfind ocamlc -linkpkg enigma.cmo -o enigma.byte
+# Compilation successful.
