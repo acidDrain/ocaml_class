@@ -2,7 +2,7 @@
   print_string (" (" ^ (string_of_int x) ^ ", " ^ (string_of_int y) ^ ") ");;
 
 let print_list_items some_list =
-  List.map print_list_item some_list;; *)
+  List.map print_list_item some_list;;
 
 let (--) lower upper =
   let rec aux n acc =
@@ -16,4 +16,4 @@ let gen_pairs mn mx =
     let rec aux curr acc =
       if curr > range then acc else aux (curr+1) ((curr, n)::acc)
     in aux mn []
-  in List.flatten (List.map create_count base_list);;
+  in List.flatten (List.map create_count base_list);; *)

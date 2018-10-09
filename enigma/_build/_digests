@@ -1,4 +1,0 @@
-"Rule: ocaml: cmo* -> byte (%=enigma )": "l\190&\014\251\152\017\015>\160\202\194T\244\195\248"
-"Rule: ocaml: ml -> cmo & cmi (%=enigma )": "0\186\165*\\\136MA\1853\246\253C\148Y\245"
-"Resource: /Users/jamesgrow/personal/intro_to_ocaml_course/solutions/enigma/enigma.ml": "\131iF1\151S\014\019\2142\208\021\149\137\129i"
-"Rule: ocaml dependencies ml (%=enigma )": "(\175\155\231,\211#\156\138$e\181\003\025\014\017"
