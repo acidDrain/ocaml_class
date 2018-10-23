@@ -32,24 +32,30 @@ hour = 0; minute = 0 }
 
 type date = { year : int; month : int; day : int; hour : int; minute : int };;
 
-type result = { value: int; carried: bool };;
-
 let the_origin_of_time = { year = 1; month = 1; day = 1; hour = 0; minute = 0 };;
 
 let wellformed (d : date) : bool =
   ((d.year >=1) && (d.month >= 1 && d.month <= 5) && (d.day >= 1 && d.day <= 4) && (d.hour >= 0 && d.hour <= 2) && (d.minute >= 0 && d.minute <= 1));;
 
-let check_minute (d : date) : result =
-  if d.minute == 1 then { value = 0; carried = true } else { value = 1; carried = false };;
+let check_month (d: date) =
+  if (d.month > 5) then {year = d.year + 1; month = 1 ; day = d.day; hour = d.hour; minute = d.minute} else {year = d.year; month = d.month; day = d.day; hour = d.hour; minute = d.minute};;
 
-let check_hour (d : date) : result =
-  if (d.hour == 2) then { value = 1; carried = true } else { value = d.hour; carried = false};;
+let check_day (d : date) =
+  if (d.day > 4) then check_month { year = d.year; month = d.month + 1; day = 1; hour = d.hour; minute = d.minute } else { year = d.year; month = d.month; day = d.day; hour = d.hour; minute = d.minute };;
 
-let check_day (d : date) : result =
-  if (d.day == 4) then { value = 1; carried = true } else { value = d.day ; carried = false };;
+let check_hour (d : date) =
+  if (d.hour > 2) then check_day { year = d.year; month = d.month; day = d.day + 1; hour = 0; minute = d.minute } else { year = d.year; month = d.month; day = d.day; hour = d.hour; minute = d.minute };;
 
-let check_month (d: date) : result =
-  if (d.month == 5) then {value = 1 ; carried = true} else {value = d.month; carried = false};;
+let check_minute (d : date) =
+  if (d.minute >= 1) then check_hour { year = d.year; month = d.month; day = d.day; hour = d.hour + 1; minute = 0} else { year = d.year; month = d.month; day = d.day; hour = d.hour; minute = 1};;
 
 let next (d : date) : date =
- "Answer";;
+  let is_good_date = wellformed d in
+    if is_good_date then
+     check_minute d else
+     d;;
+
+let of_int (mins : int) : date =
+  let rec count n next_date =
+    if n == 0 then next_date else count (n-1) (next next_date) in
+  count mins { year = 1; month = 1; day = 1; hour = 0; minute = 0 };;
