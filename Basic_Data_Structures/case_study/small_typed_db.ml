@@ -8,6 +8,7 @@ Find the bug and give a sequence of operations proof_of_bug of type query array 
 The failure must be triggered by the last query.
 
 To fix this bug, write a new version of delete that enforces the following invariant on the database, which is expected by the other functions.
+
 All the contacts of a database db (and no others) should be stored in the array db.contacts between indexes 0 and db.number_of_contacts - 1 (inclusive).
 
 Write a new function update : database -> contact -> (bool * database * contact) that either changes the number of an existing person or inserts a new contact. It should return true and the updated database if any of these two options succeeded, or false with the untouched database. The returned contact is not important, it is here just so the function has the same signature as the others.
