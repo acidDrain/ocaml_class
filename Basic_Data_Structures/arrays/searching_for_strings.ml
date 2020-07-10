@@ -9,31 +9,26 @@ The number or array accesses will be counted, to check that you obtain the expec
 *)
 
 let is_sorted (str_array : string array) : bool =
-  if (Array.length str_array <= 1) then
-    true
+  if Array.length str_array <= 1 then true
   else
     let rec next n status last nxt sarr =
-      if (n < ((Array.length sarr) - 1)) then
-        if (String.compare last nxt == -1) then
-          next (n+1) (status && true) last sarr.(n+1) sarr
-        else
-          next (n+1) (status && false) nxt sarr.(n+1) sarr
-      else ((String.compare sarr.(n-1) sarr.(n) == -1) && status)
-    in next 0 true str_array.(0) str_array.(1) str_array;;
+      if n < Array.length sarr - 1 then
+        if String.compare last nxt == -1 then
+          next (n + 1) (status && true) last sarr.(n + 1) sarr
+        else next (n + 1) (status && false) nxt sarr.(n + 1) sarr
+      else String.compare sarr.(n - 1) sarr.(n) == -1 && status
+    in
+    next 0 true str_array.(0) str_array.(1) str_array
 
 let find (str_array : string array) (word : string) : int =
-  let startIndex = 0 and endIndex = ((Array.length str_array) - 1) in
+  let startIndex = 0 and endIndex = Array.length str_array - 1 in
   let rec binary_s starti endi =
-    if (starti > endi)
-      then -1
+    if starti > endi then -1
     else
-      let middlei = (starti + ((endi - starti) / 2)) in
+      let middlei = starti + ((endi - starti) / 2) in
       let result = String.compare str_array.(middlei) word in
-      if (result == 0)
-        then middlei
-      else
-      if (result < 0)
-        then binary_s (middlei + 1) endi
-      else
-        binary_s starti (middlei - 1)
-    in binary_s startIndex endIndex;;
+      if result == 0 then middlei
+      else if result < 0 then binary_s (middlei + 1) endi
+      else binary_s starti (middlei - 1)
+  in
+  binary_s startIndex endIndex
